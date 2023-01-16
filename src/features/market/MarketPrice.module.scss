@@ -1,0 +1,30 @@
+@import 'office-ui-fabric-core/dist/sass/References';
+
+.marketPriceContainer {
+  display: flex;
+  width: 100%;
+  height: 325px;
+}
+
+.closingPrice
+{
+
+  @include ms-bgColor-sharedCyanBlue20; // Using mixins
+  color: $ms-color-gray10; // Using variables
+  box-sizing: border-box;
+  padding:20px;
+  width: 50%;
+}
+
+.priceData 
+{
+  @include ms-bgColor-white; // Using mixins
+  box-sizing: border-box;
+  padding:20px;
+  display: grid;
+  width: 50%;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 20px;
+  grid-column-gap:  20px;
+}

@@ -1,0 +1,17 @@
+
+@import 'office-ui-fabric-core/dist/sass/References';
+
+
+.deal {
+  @include ms-bgColor-white; // Using mixins
+  height: 325px;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+}
+
+.name {
+  margin-right: 20px;
+}

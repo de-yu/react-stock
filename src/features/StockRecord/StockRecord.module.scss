@@ -1,0 +1,13 @@
+
+@import 'office-ui-fabric-core/dist/sass/References';
+
+
+.list {
+  @include ms-bgColor-white; // Using mixins
+
+}
+
+
+.item {
+  display: flex;
+}
