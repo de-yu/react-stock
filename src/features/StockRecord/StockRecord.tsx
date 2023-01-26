@@ -1,8 +1,10 @@
 import React,{useState, useEffect} from 'react';
 import styles from '@/features/StockRecord/StockRecord.module.scss'
 import { DefaultButton } from '@fluentui/react/lib/Button';
+import { ComboBox, IComboBox, IComboBoxOption, IComboBoxStyles } from '@fluentui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { stockRecords, addRecordItem, deleteRecord, getStockRecords,newRecord, saveStockRecords } from '@/app/StockRecordSlice';
+import { stockListGql, getMarketStockName } from '@/app/StockListSlice'
 import type { AppDispatch } from '@/app/store';
 
 interface StockRecordItem {
@@ -18,10 +20,12 @@ export default function StockRecord() {
   const [inputFactor, setInputFactor] = useState('')
 
   const records = useSelector(stockRecords)
+  const listSelect = useSelector(getMarketStockName)
   const dispatch = useDispatch<AppDispatch>()
-
+  const comboBoxStyles: Partial<IComboBoxStyles> = { root: { maxWidth: 300 } };
   useEffect(() => {
     dispatch(getStockRecords())
+    dispatch(stockListGql())
   }, [])
 
   const clickNew = (event: any, index:number) => {
@@ -37,9 +41,11 @@ export default function StockRecord() {
     setShowNewStock(false)
   }
 
-  const nameChange = (event: React.FormEvent<HTMLInputElement>) => {
-
-    setInputName((event.target as HTMLInputElement).value)
+  const nameChange = (event: React.FormEvent<IComboBox>, option?: IComboBoxOption | undefined, index?: number | undefined, value?: string | undefined) => {
+    console.log(value)
+    if(value) {
+      setInputName(value)
+    }
   }
 
   const factorChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -63,7 +69,7 @@ export default function StockRecord() {
       const items =  record.items.map((item:StockRecordItem, index2) => {
         return (
           <div className={styles.item} key={index2}>
-            <div>{item.stock}</div>
+            <div className={styles.itemName}>{item.stock}</div>
             <div>{item.factor}</div>
           </div>
         )
@@ -78,8 +84,16 @@ export default function StockRecord() {
         {
           showNewStock && newStockIndex===index &&
           <div>
-            <input  onChange={nameChange} />
-            <input  onChange={factorChange} />
+            <ComboBox 
+            options={listSelect}
+            allowFreeInput
+            autoComplete="on"
+            onChange={nameChange}
+            styles={comboBoxStyles}
+            >
+
+            </ComboBox>
+            <input onChange={factorChange} />
             <div>
               <DefaultButton onClick={clickCancel}>取消</DefaultButton>
               <DefaultButton onClick={event => newItem(event, index)}>確認</DefaultButton>

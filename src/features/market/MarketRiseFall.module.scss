@@ -1,0 +1,27 @@
+@import 'office-ui-fabric-core/dist/sass/References';
+
+.main {
+  @include ms-bgColor-white; // Using mixins
+  box-sizing: border-box;
+  height: 325px;
+  padding: 20px;
+}
+.list {
+  width:100%;
+}
+
+.listCell {
+  width:50%;
+  text-align: center;
+  padding:10px 0;
+}
+.listHeader {
+  @include ms-bgColor-sharedCyan10; // Using mixins
+  @include ms-fontColor-white; // Using mixins
+  display: flex;
+}
+
+.listItem {
+  display: flex;
+  border-bottom: 1px solid $ms-color-sharedRed20;
+}

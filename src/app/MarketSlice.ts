@@ -168,4 +168,26 @@ export const marketHistory = (state: RootState) => {
   return temp;
 }
 
+export const marketRiseFall = (State: RootState) => {
+  return [
+    {
+      type: '上漲',
+      sum: State.market.marketRiseFall.sumOfRise,
+    },
+    {
+      type: '漲停',
+      sum: State.market.marketRiseFall.sumOfRiseLimit,
+    },
+    {
+      type: '下跌',
+      sum: State.market.marketRiseFall.sumOfDown,
+    }, {
+      type: '跌停',
+      sum: State.market.marketRiseFall.sumOfDownLimit,
+    }, {
+      type: '持平',
+      sum: State.market.marketRiseFall.sumOfEqual,
+    },
+  ]
+}
 export default marketSlice.reducer

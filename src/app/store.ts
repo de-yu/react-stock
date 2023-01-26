@@ -1,15 +1,18 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
-import MarketReducer from './MarketSlice';
+import MarketReducer from '@/app/MarketSlice';
 import MemberReducer from '@/app/MemberSlice'
 import StockRecordReducer  from '@/app/StockRecordSlice';
+import StockListReducer from '@/app/StockListSlice';
+
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     market: MarketReducer,
     member: MemberReducer,
-    stockRecord: StockRecordReducer
+    stockRecord: StockRecordReducer,
+    stockList: StockListReducer
   },
 });
 

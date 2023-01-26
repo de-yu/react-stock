@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
-import styles from './App.module.css';
+import styles from './App.module.scss';
 import { Outlet, useNavigate  } from "react-router-dom";
-import { FontIcon } from '@fluentui/react/lib/Icon';
-import { mergeStyles } from '@fluentui/react/lib/Styling';
-import { Nav, INavLink, INavStyles, INavLinkGroup } from '@fluentui/react/lib/Nav';
+import { Nav, INavLink, INavStyles, INavLinkGroup,IRenderGroupHeaderProps } from '@fluentui/react/lib/Nav';
 import { useBoolean, useId } from '@fluentui/react-hooks';
-import { Callout, Link, mergeStyleSets, Text, FontWeights } from '@fluentui/react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Callout} from '@fluentui/react';
+import { useDispatch } from 'react-redux';
 import {AppDispatch} from '@/app/store'
 import { DefaultButton } from '@fluentui/react/lib/Button';
 import { getLoginToken } from '@/app/MemberSlice';
@@ -24,19 +21,8 @@ const navStyles: Partial<INavStyles> = {
 };
 
 const navLinkGroups: INavLinkGroup[] = [ {
-  name: 'Basic components',
-  expandAriaLabel: 'Show more Basic components',
+  name: 'STOCK',
   links: [
-    {
-      key: 'test',
-      name: 'test',
-      url: '',
-    },
-    {
-      key: 'Counter',
-      name: 'Counter',
-      url: '',
-    },
     {
       key: 'Market',
       name: 'Market',
@@ -86,10 +72,20 @@ function App() {
     };
 
 
+    function _onRenderGroupHeader(props: IRenderGroupHeaderProps | undefined): JSX.Element | null {
+      if(props) {
+        return <h3>{props.name}</h3>;
+      } else {
+        return null
+      }
+    }
+
+
   return (
     <div className="App">
       <div className={styles.navBar}>
       <Nav
+        onRenderGroupHeader={_onRenderGroupHeader}
         onLinkClick={handleOnClick}
         selectedKey="key3"
         ariaLabel="Nav basic example"
@@ -101,13 +97,15 @@ function App() {
         <div className={styles.mainHeader}>
           <div className={styles.login}>
             <DefaultButton
-            id={buttonId}
+              id={buttonId}
+              onClick={toggleIsCalloutVisible}
               text='登入'
             />
-            <Callout
+            {isCalloutVisible && (<Callout
               className={styles.loginPanel}
               role="dialog"
               target={`#${buttonId}`}
+              onDismiss={toggleIsCalloutVisible}
             >
               
               <TextField label="帳號" value={account} onChange={onChangeAccount}/>
@@ -121,7 +119,7 @@ function App() {
                   text='登入'
                   onClick={loginAction}
                 />
-            </Callout>
+            </Callout>)}
           </div>
         </div>
         <div className={styles.content + ' ms-bgColor-gray30'}>
