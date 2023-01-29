@@ -5,7 +5,7 @@ import { RootState } from '@/app/store';
 import GraphClient from '@/api/ApolloClient'
 import Query from '@/api/Query';
 import {map} from 'lodash-es'
-import { toThousand, numberExpress, numberFixed } from '../utility/utility';
+import { toThousand, numberExpress, numberFixed } from '@/utility/utility';
 interface MarketHistoryType
 {
   date: string;

@@ -1,5 +1,5 @@
 
-import React, {useRef, useEffect} from 'react';
+import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import { calculateMA } from '@/utility/TechnicalAnalysis';
 import {map} from 'lodash-es'
